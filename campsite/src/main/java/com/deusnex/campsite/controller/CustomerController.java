@@ -2,6 +2,7 @@ package com.deusnex.campsite.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import com.deusnex.campsite.service.CustomerService;
 @RequestMapping("/customers")
 public class CustomerController {
 
+	@Autowired
 	private CustomerService customerService;
 	
 	// add mapping for list
@@ -21,14 +23,12 @@ public class CustomerController {
 	@GetMapping("/list")
 	public String listCustomers(Model theModel) {
 		
-		// get customers from the db
+		// get employees from the db
 		List<Customer> theCustomers = customerService.findAll();
 		
-		// add customers to the model
+		// add to the spring model
 		theModel.addAttribute("customers", theCustomers);
 		
 		return "customers/list-customers";
-		
-		
 	}
 }
