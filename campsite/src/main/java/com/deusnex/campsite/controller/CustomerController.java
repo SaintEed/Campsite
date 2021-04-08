@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deusnex.campsite.entity.Customer;
 import com.deusnex.campsite.service.CustomerService;
@@ -45,6 +46,19 @@ public class CustomerController {
 			
 			return "customers/customer-form";
 		}
+		
+		@GetMapping("/showFormForUpdate")
+		public String showFormForUpdate(@RequestParam("customerId") int theId,
+										Model theModel) {
+			// get the employee from the service
+			Customer theCustomer = customerService.findById(theId);
+			
+			// set employee as a model atttribute to pre-populate the form
+			theModel.addAttribute("customer", theCustomer);
+			
+			// send over  to our form
+			return "customers/customer-form";
+		}
 	
 		@PostMapping("/save")
 		public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
@@ -53,6 +67,16 @@ public class CustomerController {
 			customerService.save(theCustomer);
 			
 			// use a redirect to prevent duplicate submissions
+			return "redirect:/customers/list";
+		}
+		
+		@GetMapping("/delete")
+		public String delete(@RequestParam("customerId") int theId) {
+			
+			// delete the employee
+			customerService.deleteById(theId);
+			
+			// redirect to /employee/list
 			return "redirect:/customers/list";
 		}
 }
