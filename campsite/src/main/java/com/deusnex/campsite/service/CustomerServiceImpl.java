@@ -24,6 +24,24 @@ public class CustomerServiceImpl implements CustomerService {
 			
 			return customerRepository.findAllByOrderByLastNameAsc();
 		}
+
+		@Override
+		public Customer findById(int theId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void save(Customer theCustomer) {
+			customerRepository.save(theCustomer);
+			
+		}
+
+		@Override
+		public void deleteById(int theId) {
+			// TODO Auto-generated method stub
+			
+		}
 		
 	
 

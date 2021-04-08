@@ -33,6 +33,9 @@ public class Customer {
 	@Column(name="postcode")
 	private String postcode;
 	
+	@Column(name="contact_no")
+	private String contactNo;
+	
 	@Column(name="email")
 	private String email;
 	
@@ -42,27 +45,30 @@ public class Customer {
 	}
 
 
-	public Customer(String firstName, String lastName, String streetAddress, String city, String postcode,
+	public Customer(String firstName, String lastName, String streetAddress, String city, String contactNo, String postcode,
 			String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.streetAddress = streetAddress;
 		this.city = city;
 		this.postcode = postcode;
+		this.contactNo = contactNo;
 		this.email = email;
 	}
 
 
 	public Customer(int id, String firstName, String lastName, String streetAddress, String city, String postcode,
-			String email) {
+			String contactNo, String email) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.streetAddress = streetAddress;
 		this.city = city;
 		this.postcode = postcode;
+		this.contactNo = contactNo;
 		this.email = email;
 	}
+
 
 	// Getters/Setters
 	public int getId() {
@@ -125,6 +131,17 @@ public class Customer {
 	}
 
 
+	
+	public String getContactNo() {
+		return contactNo;
+	}
+
+
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+
+
 	public String getEmail() {
 		return email;
 	}
@@ -135,11 +152,11 @@ public class Customer {
 	}
 
 
-	// toString()
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", streetAddress="
-				+ streetAddress + ", city=" + city + ", postcode=" + postcode + ", email=" + email + "]";
+				+ streetAddress + ", city=" + city + ", postcode=" + postcode + ", contactNo=" + contactNo + ", email="
+				+ email + "]";
 	}
 	
 	
