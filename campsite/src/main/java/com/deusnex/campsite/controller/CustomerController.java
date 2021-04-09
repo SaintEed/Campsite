@@ -47,6 +47,19 @@ public class CustomerController {
 			return "customers/customer-form";
 		}
 		
+		@GetMapping("/view")
+		public String viewCustomer(@RequestParam("customerId") int theId,
+										Model theModel) {
+			// get the customer from the service
+			Customer theCustomer = customerService.findById(theId);
+			
+			// set customer as a model atttribute to pre-populate the form
+			theModel.addAttribute("customer", theCustomer);
+			
+			// send over  to our form
+			return "customers/customer-view";
+		}
+		
 		@GetMapping("/showFormForUpdate")
 		public String showFormForUpdate(@RequestParam("customerId") int theId,
 										Model theModel) {
