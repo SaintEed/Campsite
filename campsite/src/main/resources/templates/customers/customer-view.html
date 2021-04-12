@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 	
-	<title>Save Customer</title>
+	<title>View Customer</title>
 
 </head>
 
@@ -20,10 +20,10 @@
 	<div class="container">
 		<h1 style="text-align:center">Crystal Lake Campsite</h1>
 		<br>
-		<h3>Customer Directory</h3>
+		<h3>Customer Record</h3>
 		<hr>
 		
-		<p class="h4 mb-4">Customer Record</p>
+<!-- 		<p class="h4 mb-4">Customer Record</p> -->
 	
 			<table class="table table-bordered">
 	
@@ -48,7 +48,47 @@
 			</tbody>
 			
 			</table>
+		
+		<p class="h4 mb-4">Bookings</p>
+		
+		<table class="table table-bordered table-striped">
 	
+			<thead class="thead-dark">
+				<tr>
+					<th>Id</th>
+					<th>Type</th>
+					<th>Plot</th>
+					<th>Arrival</th>
+					<th>Nights</th>
+					<th>Electric</th>
+					<th>Fee</th>
+					
+					
+				</tr>
+			</thead>
+	
+	
+			<tbody>
+				<tr th:each="tempBooking : ${bookings}" >
+	
+					<td th:text="${tempBooking.id}"  />
+					<td th:text="${tempBooking.type}"  />
+					<td th:text="${tempBooking.plot}"  />
+					<td th:text="${tempBooking.arrivalDate}"  />
+					<td th:text="${tempBooking.noNights}"  />
+					<td th:text="${tempBooking.electric}"  />
+					<td th:text="${tempBooking.fee}"  />
+	
+				</tr>
+			</tbody>
+			
+			</table>
+		
+		
+		
+		
+		
+		
 		<hr>
 		<a th:href="@{/customers/list}">Back to Customers List</a>
 		

@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.deusnex.campsite.entity.Booking;
 import com.deusnex.campsite.entity.Customer;
+import com.deusnex.campsite.service.BookingService;
 import com.deusnex.campsite.service.CustomerService;
 
 @Controller
@@ -20,6 +22,9 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private BookingService bookingService;
 	
 	// add mapping for list
 	
@@ -55,6 +60,13 @@ public class CustomerController {
 			
 			// set customer as a model atttribute to pre-populate the form
 			theModel.addAttribute("customer", theCustomer);
+			
+			// get employees from the db
+			List<Booking> theBookings = bookingService.findAll();
+			
+			// add to the spring model
+			theModel.addAttribute("bookings", theBookings);
+			
 			
 			// send over  to our form
 			return "customers/customer-view";

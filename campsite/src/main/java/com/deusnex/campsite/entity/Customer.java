@@ -1,10 +1,17 @@
 package com.deusnex.campsite.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,6 +45,10 @@ public class Customer {
 	
 	@Column(name="email")
 	private String email;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="customer_id")
+	private List<Booking> bookings;
 	
 	// Constructors
 	public Customer() {
@@ -152,6 +163,17 @@ public class Customer {
 	}
 
 
+	// add a convenience method
+	
+		public void addBooking(Booking theBooking) {
+			
+			if (bookings == null) {
+				bookings=new ArrayList<>();
+			}
+			
+			bookings.add(theBooking);
+		}
+		
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", streetAddress="
