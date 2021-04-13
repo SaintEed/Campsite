@@ -55,39 +55,26 @@
 	
 			<thead class="thead-dark">
 				<tr>
-					<th>Id</th>
 					<th>Type</th>
 					<th>Plot</th>
 					<th>Arrival</th>
 					<th>Nights</th>
-					<th>Electric</th>
 					<th>Fee</th>
-					
-					
 				</tr>
 			</thead>
 	
 	
 			<tbody>
 				<tr th:each="tempBooking : ${bookings}" >
-	
-					<td th:text="${tempBooking.id}"  />
 					<td th:text="${tempBooking.type}"  />
 					<td th:text="${tempBooking.plot}"  />
 					<td th:text="${tempBooking.arrivalDate}"  />
 					<td th:text="${tempBooking.noNights}"  />
-					<td th:text="${tempBooking.electric}"  />
 					<td th:text="${tempBooking.fee}"  />
-	
 				</tr>
 			</tbody>
 			
 			</table>
-		
-		
-		
-		
-		
 		
 		<hr>
 		<a th:href="@{/customers/list}">Back to Customers List</a>

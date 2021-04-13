@@ -26,10 +26,10 @@ public class BookingServiceImpl implements BookingService {
 	}
 	
 	@Override
+	
 	public List<Booking> findAllByCustId(int theId) {
 		
-		
-		return null;
+		return bookingRepository.findAllByCustomerId(theId);
 	}
 
 	@Override

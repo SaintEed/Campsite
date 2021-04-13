@@ -62,7 +62,7 @@ public class CustomerController {
 			theModel.addAttribute("customer", theCustomer);
 			
 			// get employees from the db
-			List<Booking> theBookings = bookingService.findAll();
+			List<Booking> theBookings = bookingService.findAllByCustId(theId);
 			
 			// add to the spring model
 			theModel.addAttribute("bookings", theBookings);
