@@ -46,9 +46,11 @@ public class Customer {
 	@Column(name="email")
 	private String email;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="customer_id")
-	private List<Booking> bookings;
+	/*
+	 * @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	 * 
+	 * @JoinColumn(name="customer_id") private List<Booking> bookings;
+	 */
 	
 	// Constructors
 	public Customer() {
@@ -161,18 +163,26 @@ public class Customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	/*
+	 * public List<Booking> getBookings() { return bookings; }
+	 * 
+	 * 
+	 * public void setBookings(List<Booking> bookings) { this.bookings = bookings; }
+	 */
 
 
 	// add a convenience method
 	
-		public void addBooking(Booking theBooking) {
-			
-			if (bookings == null) {
-				bookings=new ArrayList<>();
-			}
-			
-			bookings.add(theBooking);
-		}
+		
+
+	/*
+	 * public void addBooking(Booking theBooking) {
+	 * 
+	 * if (bookings == null) { bookings=new ArrayList<>(); }
+	 * 
+	 * bookings.add(theBooking); }
+	 */
 		
 	@Override
 	public String toString() {
@@ -180,6 +190,17 @@ public class Customer {
 				+ streetAddress + ", city=" + city + ", postcode=" + postcode + ", contactNo=" + contactNo + ", email="
 				+ email + "]";
 	}
+
+
+	/*
+	 * public void addBooking(List<Booking> theBookings) { if (bookings == null) {
+	 * bookings=new ArrayList<>(); } for (Booking tempBooking : theBookings) {
+	 * bookings.add(tempBooking);
+	 * 
+	 * }
+	 * 
+	 * }
+	 */
 	
 	
 }

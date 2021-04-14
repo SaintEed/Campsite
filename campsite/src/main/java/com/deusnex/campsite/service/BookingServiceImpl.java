@@ -26,7 +26,6 @@ public class BookingServiceImpl implements BookingService {
 	}
 	
 	@Override
-	
 	public List<Booking> findAllByCustId(int theId) {
 		
 		return bookingRepository.findAllByCustomerId(theId);
@@ -48,13 +47,14 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public void save(Booking theBooking) {
-		// TODO Auto-generated method stub
+		System.out.println(theBooking.toString());
+		bookingRepository.save(theBooking);
 
 	}
 
 	@Override
 	public void deleteById(int theId) {
-		// TODO Auto-generated method stub
+		bookingRepository.deleteById(theId);
 
 	}
 	

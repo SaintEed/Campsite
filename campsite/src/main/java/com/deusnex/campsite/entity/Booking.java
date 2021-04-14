@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="booking")
 public class Booking {
+	
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -20,19 +21,19 @@ public class Booking {
 	private String type;
 	
 	@Column(name="plot")
-	private int plot;
+	private String plot;
 	
 	@Column(name="arrival")
 	private String arrivalDate;
 	
 	@Column(name="no_nights")
-	private int noNights;
+	private String noNights;
 	
 	@Column(name="electric")
-	private char electric;
+	private String electric;
 	
 	@Column(name="fee")
-	private int fee;
+	private String fee;
 	
 	@Column(name="customer_id")
 	private int customerId;
@@ -42,7 +43,23 @@ public class Booking {
 		
 	}
 
-	public Booking(String type, int plot, String arrivalDate, int noNights, char electric, int fee, int customerId) {
+	public Booking(String type, String plot, String arrivalDate, String noNights, String electric, String fee, int customerId) {
+		this.type = type;
+		this.plot = plot;
+		this.arrivalDate = arrivalDate;
+		this.noNights = noNights;
+		this.electric = electric;
+		this.fee = fee;
+		this.customerId = customerId;
+	}
+	
+	
+
+	
+	
+	public Booking(int id, String type, String plot, String arrivalDate, String noNights, String electric, String fee,
+			int customerId) {
+		this.id = id;
 		this.type = type;
 		this.plot = plot;
 		this.arrivalDate = arrivalDate;
@@ -52,9 +69,9 @@ public class Booking {
 		this.customerId = customerId;
 	}
 
-	
-	
 	// Getters/Setters
+	
+
 	public int getId() {
 		return id;
 	}
@@ -71,11 +88,11 @@ public class Booking {
 		this.type = type;
 	}
 
-	public int getPlot() {
+	public String getPlot() {
 		return plot;
 	}
 
-	public void setPlot(int plot) {
+	public void setPlot(String plot) {
 		this.plot = plot;
 	}
 
@@ -87,27 +104,27 @@ public class Booking {
 		this.arrivalDate = arrivalDate;
 	}
 
-	public int getNoNights() {
+	public String getNoNights() {
 		return noNights;
 	}
 
-	public void setNoNights(int noNights) {
+	public void setNoNights(String noNights) {
 		this.noNights = noNights;
 	}
 
-	public char getElectric() {
+	public String getElectric() {
 		return electric;
 	}
 
-	public void setElectric(char electric) {
+	public void setElectric(String electric) {
 		this.electric = electric;
 	}
 
-	public int getFee() {
+	public String getFee() {
 		return fee;
 	}
 
-	public void setFee(int fee) {
+	public void setFee(String fee) {
 		this.fee = fee;
 	}
 
@@ -118,15 +135,13 @@ public class Booking {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Booking [id=" + id + ", type=" + type + ", plot=" + plot + ", arrivalDate=" + arrivalDate
 				+ ", noNights=" + noNights + ", electric=" + electric + ", fee=" + fee + ", customerId=" + customerId
 				+ "]";
 	}
-	
-	
 	
 	
 	

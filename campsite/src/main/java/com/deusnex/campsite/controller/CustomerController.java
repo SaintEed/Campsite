@@ -58,11 +58,13 @@ public class CustomerController {
 			// get the customer from the service
 			Customer theCustomer = customerService.findById(theId);
 			
+			
 			// set customer as a model atttribute to pre-populate the form
 			theModel.addAttribute("customer", theCustomer);
 			
-			// get employees from the db
+			// get bookings from the db
 			List<Booking> theBookings = bookingService.findAllByCustId(theId);
+			
 			
 			// add to the spring model
 			theModel.addAttribute("bookings", theBookings);
@@ -89,6 +91,7 @@ public class CustomerController {
 		public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
 			
 			// save the employee
+			
 			customerService.save(theCustomer);
 			
 			// use a redirect to prevent duplicate submissions
