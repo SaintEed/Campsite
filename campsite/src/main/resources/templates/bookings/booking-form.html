@@ -25,11 +25,12 @@
 		
 	
 		<form action="#" th:action="@{/bookings/save}"
-						 th:object="${booking}" method="POST">
+						 th:object="${booking}" 
+						 method="POST">
 						 
 			 <!-- Add hidden form field to handle update -->
 			 
-			 <input type="hidden" th:field="*{id}" />
+<!-- 			 <input type="hidden" th:field="*{id}" /> -->
 		
 			<label>Booking Type</label><input  type="text" th:field="*{type}"
 					class="form-control mb-4 col-4">
