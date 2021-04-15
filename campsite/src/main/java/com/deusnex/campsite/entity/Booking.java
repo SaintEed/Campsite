@@ -27,13 +27,13 @@ public class Booking {
 	private String arrivalDate;
 	
 	@Column(name="no_nights")
-	private String noNights;
+	private int noNights;
 	
 	@Column(name="electric")
 	private String electric;
 	
 	@Column(name="fee")
-	private String fee;
+	private int fee;
 	
 	@Column(name="customer_id")
 	private int customerId;
@@ -43,7 +43,7 @@ public class Booking {
 		
 	}
 
-	public Booking(String type, String plot, String arrivalDate, String noNights, String electric, String fee, int customerId) {
+	public Booking(String type, String plot, String arrivalDate, int noNights, String electric, int fee, int customerId) {
 		this.type = type;
 		this.plot = plot;
 		this.arrivalDate = arrivalDate;
@@ -57,7 +57,7 @@ public class Booking {
 
 	
 	
-	public Booking(int id, String type, String plot, String arrivalDate, String noNights, String electric, String fee,
+	public Booking(int id, String type, String plot, String arrivalDate, int noNights, String electric, int fee,
 			int customerId) {
 		this.id = id;
 		this.type = type;
@@ -104,11 +104,11 @@ public class Booking {
 		this.arrivalDate = arrivalDate;
 	}
 
-	public String getNoNights() {
+	public int getNoNights() {
 		return noNights;
 	}
 
-	public void setNoNights(String noNights) {
+	public void setNoNights(int noNights) {
 		this.noNights = noNights;
 	}
 
@@ -120,11 +120,11 @@ public class Booking {
 		this.electric = electric;
 	}
 
-	public String getFee() {
+	public int getFee() {
 		return fee;
 	}
 
-	public void setFee(String fee) {
+	public void setFee(int fee) {
 		this.fee = fee;
 	}
 

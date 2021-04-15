@@ -47,7 +47,7 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public void save(Booking theBooking) {
-		System.out.println(theBooking.toString());
+		
 		bookingRepository.save(theBooking);
 
 	}

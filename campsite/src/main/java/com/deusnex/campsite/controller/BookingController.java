@@ -52,8 +52,27 @@ public class BookingController {
 	
 	@PostMapping("/save")
 	public String saveBooking(@ModelAttribute("booking") Booking theBooking) {
+		
+		//Calculate fee
+		switch (theBooking.getType()) {
+		case "Caravan":
+			theBooking.setFee(theBooking.getNoNights() * 18);
+			break;
+		case "Tent":
+			theBooking.setFee(theBooking.getNoNights() * 18);
+			break;
+		case "Motorhome":
+			theBooking.setFee(theBooking.getNoNights() * 18);
+			break;
+		case "Static":
+			theBooking.setFee(theBooking.getNoNights() * 65);
+			break;
+		case "Pod":
+			theBooking.setFee(theBooking.getNoNights() * 45);
+			break;
+		}
 				
-		//save the employee
+		//save the booking
 		bookingService.save(theBooking);
 		
 		// use a redirect to prevent duplicate submissions
