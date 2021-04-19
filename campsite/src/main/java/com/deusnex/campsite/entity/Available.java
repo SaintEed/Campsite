@@ -2,6 +2,7 @@ package com.deusnex.campsite.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -9,7 +10,7 @@ import javax.persistence.Table;
 public class Available {
 
 	//Fields
-	
+	@Id
 	@Column(name="date")
 	private String date;
 	
