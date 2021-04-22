@@ -1,18 +1,20 @@
 package com.deusnex.campsite.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="available")
-public class Available {
+@Table(name="camp")
+public class Camp {
 
 	//Fields
 	@Id
 	@Column(name="date")
-	private String date;
+	private LocalDate date;
 	
 	@Column(name="plot_1")
 	private int plot1;
@@ -52,11 +54,11 @@ public class Available {
 	
 	//Constructors
 	
-	public Available() {
+	public Camp() {
 		
 	}
 
-	public Available(String date, int plot1, int plot2, int plot3, int plot4, int plot5, int plot6, int plot7,
+	public Camp(LocalDate date, int plot1, int plot2, int plot3, int plot4, int plot5, int plot6, int plot7,
 			int plot8, int plot9, int plot10, int plot11, int plot12) {
 		this.date = date;
 		this.plot1 = plot1;
@@ -73,11 +75,11 @@ public class Available {
 		this.plot12 = plot12;
 	}
 
-	public String getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

@@ -1,11 +1,15 @@
 package com.deusnex.campsite.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="booking")
@@ -24,7 +28,8 @@ public class Booking {
 	private String plot;
 	
 	@Column(name="arrival")
-	private String arrivalDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate arrivalDate;
 	
 	@Column(name="no_nights")
 	private int noNights;
@@ -43,7 +48,7 @@ public class Booking {
 		
 	}
 
-	public Booking(String type, String plot, String arrivalDate, int noNights, String electric, int fee, int customerId) {
+	public Booking(String type, String plot, LocalDate arrivalDate, int noNights, String electric, int fee, int customerId) {
 		this.type = type;
 		this.plot = plot;
 		this.arrivalDate = arrivalDate;
@@ -57,7 +62,7 @@ public class Booking {
 
 	
 	
-	public Booking(int id, String type, String plot, String arrivalDate, int noNights, String electric, int fee,
+	public Booking(int id, String type, String plot, LocalDate arrivalDate, int noNights, String electric, int fee,
 			int customerId) {
 		this.id = id;
 		this.type = type;
@@ -96,11 +101,11 @@ public class Booking {
 		this.plot = plot;
 	}
 
-	public String getArrivalDate() {
+	public LocalDate getArrivalDate() {
 		return arrivalDate;
 	}
 
-	public void setArrivalDate(String arrivalDate) {
+	public void setArrivalDate(LocalDate arrivalDate) {
 		this.arrivalDate = arrivalDate;
 	}
 
@@ -142,15 +147,6 @@ public class Booking {
 				+ ", noNights=" + noNights + ", electric=" + electric + ", fee=" + fee + ", customerId=" + customerId
 				+ "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
