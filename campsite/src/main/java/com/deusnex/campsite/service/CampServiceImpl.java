@@ -29,8 +29,6 @@ public class CampServiceImpl implements CampService {
 
 	@Override
 	public List<Camp> findByDateBetween(LocalDate start, LocalDate end) {
-		System.out.println(start);
-		System.out.println(end);
 		return campRepository.findByDateBetween(start, end);
 	}
 

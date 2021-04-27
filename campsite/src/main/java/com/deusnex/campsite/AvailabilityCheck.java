@@ -14,15 +14,18 @@ public class AvailabilityCheck {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
 	
+	private int noNights;
+	
 	public AvailabilityCheck() {
 		
 	}
 
 
-	public AvailabilityCheck(String type, LocalDate startDate, LocalDate endDate) {
+	public AvailabilityCheck(String type, LocalDate startDate, LocalDate endDate, int noNights) {
 		this.type = type;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.noNights = noNights;
 	}
 
 
@@ -56,10 +59,26 @@ public class AvailabilityCheck {
 	}
 
 
+	public int getNoNights() {
+		return noNights;
+	}
+
+
+	public void setNoNights(int noNights) {
+		this.noNights = noNights;
+	}
+
+
 	@Override
 	public String toString() {
-		return "AvailabilityCheck [type=" + type + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+		return "AvailabilityCheck [type=" + type + ", startDate=" + startDate + ", endDate=" + endDate + ", noNights="
+				+ noNights + "]";
 	}
+	
+	
+
+
+	
 
 	
 }

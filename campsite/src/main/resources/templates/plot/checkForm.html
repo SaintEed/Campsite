@@ -22,7 +22,7 @@
 		<br>
 		<h3>Check Availability</h3>
 		<hr>
-		<form action="#" th:action="@{/camp/runCheck}"
+		<form action="#" th:action="@{/plot/runCheck}"
 						 th:object="${check}" 
 						 method="POST">
 						 
@@ -37,6 +37,9 @@
 					class="form-control mb-4 col-4">
 			
 			<label>Last Night Date</label><input type="date" th:field="*{endDate}"
+					class="form-control mb-4 col-4">
+			
+			<label>Number of Nights</label><input type="int" th:field="*{noNights}"
 					class="form-control mb-4 col-4">
 			
 				
