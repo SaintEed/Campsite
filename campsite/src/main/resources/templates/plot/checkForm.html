@@ -30,8 +30,15 @@
 			 
 <!-- 			 <input type="hidden" th:field="*{id}" /> -->
 		
-			<label>Booking Type</label><input  type="text" th:field="*{type}"
+			<label>Booking Type</label>
+			<select  name="Type"th:field="*{type}"
 					class="form-control mb-4 col-4">
+				<option value="Caravan">Caravan</option>
+				<option value="Motorhome">Motorhome</option>
+				<option value="Tent">Tent</option>
+				<option value="Static">Static</option>
+				<option value="Pod">Pod</option>
+			</select>
 			
 			<label>Arrival Date (YYYY-MM-DD)</label><input type="date" th:field="*{startDate}"
 					class="form-control mb-4 col-4">
@@ -39,7 +46,7 @@
 			<label>Last Night Date</label><input type="date" th:field="*{endDate}"
 					class="form-control mb-4 col-4">
 			
-			<label>Number of Nights</label><input type="int" th:field="*{noNights}"
+			<label>Number of Nights</label><input type="number" th:field="*{noNights}"
 					class="form-control mb-4 col-4">
 			
 				

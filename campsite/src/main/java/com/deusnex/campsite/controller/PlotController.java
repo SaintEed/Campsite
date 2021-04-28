@@ -36,12 +36,12 @@ public class PlotController {
 	}
 	
 	@PostMapping("/runCheck")
-	public String runCheck(@ModelAttribute("check") AvailabilityCheck theCheck) {
-		
+	public String runCheck(@ModelAttribute("check") AvailabilityCheck theCheck, Model theModel) {
+		System.out.println(theCheck.toString());
 		List<String> checkOutput = new ArrayList<>();
 		int x = 0;
-		int days = theCheck.getNoNights();
 		int count;
+		int days = theCheck.getNoNights();
 		
 		List<Plot> resultSet = new ArrayList<>();
 		
@@ -81,7 +81,7 @@ public class PlotController {
 			}
 			break;
 		
-		default:
+		default:{
 			for(int y = 1; y < 11; y++) {
 				count = 0;
 				for (Plot temp : resultSet) {
@@ -89,18 +89,22 @@ public class PlotController {
 						count++;
 					}
 				}
-				if ((count > days)|(count != 0)) {
+				if (!(count < days)) {
 					checkOutput.add("Plot " + y);
 				}
 			}
 			break;
 		}
+	}
+		
+		// add to the spring model
+		theModel.addAttribute("checkOutput", checkOutput);
 		for (String temp : checkOutput) {
 			System.out.println(temp.toString());
 		}
 		
 		// use a redirect to prevent duplicate submissions
-		return "redirect:/customers/list";
+		return "plot/checkResults";
 		}
 	
 	}
