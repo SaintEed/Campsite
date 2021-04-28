@@ -41,4 +41,17 @@ public class PlotServiceImpl implements PlotService {
 		return plotRepository.findAll();
 	}
 
+	@Override
+	public void reservePlot(LocalDate start, LocalDate end, int plot, int bookingId) {
+		
+		plotRepository.reservePlot(start, end, plot, bookingId);
+	}
+
+	@Override
+	public void unreservePlot(LocalDate start, LocalDate end, int plot) {
+
+		plotRepository.unreservePlot(start, end, plot);
+		
+	}
+
 }

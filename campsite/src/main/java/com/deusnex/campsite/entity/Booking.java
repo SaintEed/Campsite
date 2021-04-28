@@ -25,11 +25,15 @@ public class Booking {
 	private String type;
 	
 	@Column(name="plot")
-	private String plot;
+	private int plot;
 	
 	@Column(name="arrival")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate arrivalDate;
+	
+	@Column(name="last_night")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate lastNight;
 	
 	@Column(name="no_nights")
 	private int noNights;
@@ -48,10 +52,11 @@ public class Booking {
 		
 	}
 
-	public Booking(String type, String plot, LocalDate arrivalDate, int noNights, String electric, int fee, int customerId) {
+	public Booking(String type, int plot, LocalDate arrivalDate, LocalDate lastNight, int noNights, String electric, int fee, int customerId) {
 		this.type = type;
 		this.plot = plot;
 		this.arrivalDate = arrivalDate;
+		this.lastNight = lastNight;
 		this.noNights = noNights;
 		this.electric = electric;
 		this.fee = fee;
@@ -62,12 +67,13 @@ public class Booking {
 
 	
 	
-	public Booking(int id, String type, String plot, LocalDate arrivalDate, int noNights, String electric, int fee,
+	public Booking(int id, String type, int plot, LocalDate arrivalDate, LocalDate lastNight, int noNights, String electric, int fee,
 			int customerId) {
 		this.id = id;
 		this.type = type;
 		this.plot = plot;
 		this.arrivalDate = arrivalDate;
+		this.noNights = noNights;
 		this.noNights = noNights;
 		this.electric = electric;
 		this.fee = fee;
@@ -93,11 +99,11 @@ public class Booking {
 		this.type = type;
 	}
 
-	public String getPlot() {
+	public int getPlot() {
 		return plot;
 	}
 
-	public void setPlot(String plot) {
+	public void setPlot(int plot) {
 		this.plot = plot;
 	}
 
@@ -141,12 +147,23 @@ public class Booking {
 		this.customerId = customerId;
 	}
 	
+	
+	public LocalDate getLastNight() {
+		return lastNight;
+	}
+
+	public void setLastNight(LocalDate lastNight) {
+		this.lastNight = lastNight;
+	}
+
 	@Override
 	public String toString() {
 		return "Booking [id=" + id + ", type=" + type + ", plot=" + plot + ", arrivalDate=" + arrivalDate
-				+ ", noNights=" + noNights + ", electric=" + electric + ", fee=" + fee + ", customerId=" + customerId
-				+ "]";
+				+ ", lastNight=" + lastNight + ", noNights=" + noNights + ", electric=" + electric + ", fee=" + fee
+				+ ", customerId=" + customerId + "]";
 	}
+
+	
 	
 	
 }

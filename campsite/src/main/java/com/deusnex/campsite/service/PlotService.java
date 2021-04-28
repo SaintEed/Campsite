@@ -13,5 +13,9 @@ public interface PlotService {
 
 	public List<Plot> findAvailableByDateBetween(LocalDate start, LocalDate end);
 	
+	public void reservePlot(LocalDate start, LocalDate end, int plot, int bookingId);
+	
+	public void unreservePlot(LocalDate start, LocalDate end, int plot);
+	
 	public List<Plot> findAll();
 }

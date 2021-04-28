@@ -1,7 +1,5 @@
 package com.deusnex.campsite.controller;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deusnex.campsite.entity.Booking;
 import com.deusnex.campsite.service.BookingService;
+import com.deusnex.campsite.service.PlotService;
 
 @Controller
 @RequestMapping("/bookings")
@@ -21,7 +20,8 @@ public class BookingController {
 	@Autowired
 	private BookingService bookingService;
 	
-	
+	@Autowired
+	private PlotService plotService;
 	
 	
 	@GetMapping("/showBookingFormForAdd")
@@ -77,6 +77,10 @@ public class BookingController {
 		//save the booking
 		bookingService.save(theBooking);
 		
+		//reserve the plot
+		
+		plotService.reservePlot(theBooking.getArrivalDate(), theBooking.getLastNight(), theBooking.getPlot(), theBooking.getCustomerId());
+		
 		// use a redirect to prevent duplicate submissions
 		return "redirect:/customers/list";
 	}
@@ -84,8 +88,17 @@ public class BookingController {
 	@GetMapping("/delete")
 	public String delete(@RequestParam("bookingId") int theId) {
 		
-		// delete the employee
+		//FInd the booking to be deleted
+		Booking theBooking = new Booking();
+		theBooking = bookingService.findById(theId);
+		
+		//unreserve the plot
+		plotService.unreservePlot(theBooking.getArrivalDate(), theBooking.getLastNight(), theBooking.getPlot());
+		
+		// delete the booking
 		bookingService.deleteById(theId);
+		
+		
 		
 		// redirect to /employee/list
 		return "redirect:/customers/list";
