@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,21 @@ import com.deusnex.campsite.service.PlotService;
 @RequestMapping("/bookings")
 public class BookingController {
 
+	@Value("${fee.caravan}")
+	private int caravan;
+	
+	@Value("${fee.tent}")
+	private int tent;
+	
+	@Value("${fee.static}")
+	private int staticFee;
+	
+	@Value("${fee.pod}")
+	private int pod;
+	
+	@Value("${fee.dog}")
+	private int dog;
+	
 	@Autowired
 	private BookingService bookingService;
 	
@@ -159,42 +175,37 @@ public class BookingController {
 	@RequestMapping(value="/makeBooking", params="action=save", method=RequestMethod.POST )
 	public String saveBooking(@ModelAttribute("booking") Booking theBooking, Model theModel) {
 		
-//	Booking theBooking = (Booking) (theModel.getAttribute("booking"));
-	
-	//int tempPlot = thePlot.charAt(6);
-	
-	//theBooking.setPlot(tempPlot);
 	
 		//Calculate fee
+		
 		switch (theBooking.getType()) {
 		case "Caravan":
-			theBooking.setFee(theBooking.getNoNights() * 18);
+			theBooking.setFee(theBooking.getNoNights() * caravan);
 			break;
 		case "Tent":
-			theBooking.setFee(theBooking.getNoNights() * 18);
+			theBooking.setFee(theBooking.getNoNights() * tent);
 			break;
 		case "Motorhome":
-			theBooking.setFee(theBooking.getNoNights() * 18);
+			theBooking.setFee(theBooking.getNoNights() * caravan);
 			break;
 		case "Static":
-			theBooking.setFee(theBooking.getNoNights() * 65);
+			theBooking.setFee(theBooking.getNoNights() * staticFee);
 			break;
 		case "Pod":
-			theBooking.setFee(theBooking.getNoNights() * 45);
+			theBooking.setFee(theBooking.getNoNights() * pod);
 			break;
 		}
 			
 		if (theBooking.getDogs() > 0) {
 			int dogsFee = 0;
 			dogsFee= (theBooking.getDogs() * theBooking.getNoNights());
-			dogsFee= dogsFee * 2;
+			dogsFee= dogsFee * dog;
 			theBooking.setFee(theBooking.getFee() + dogsFee);
 		}
 		//save the booking
 		bookingService.save(theBooking);
 		
 		//reserve the plot
-		
 		plotService.reservePlot(theBooking.getArrivalDate(), theBooking.getLastNight(), theBooking.getPlot(), theBooking.getCustomerId());
 		
 		// use a redirect to prevent duplicate submissions
