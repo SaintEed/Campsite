@@ -43,8 +43,6 @@
 					<td th:text="${customer.firstName}"  />
 					<td th:text="${customer.lastName}" />
 					<td th:text="${customer.email}" />
-					
-	
 				</tr>
 			</tbody>
 			
@@ -54,20 +52,13 @@
 		
 		<a th:href="@{/bookings/showBookingFormForAdd(customerId=${customer.id})}" class = "btn btn-primary btn-sm mb-3">Add Booking</a> 
 		
-		<a th:href="@{/plot/showCheckForm}" class = "btn btn-primary btn-sm mb-3">Check Availability</a> 
-		
-<!-- 		<a th:href="@{/available/showAvailableCheckForm" class = "btn btn-primary btn-sm">Check Availability</a> -->
-		
-		
-		
-		
 		
 		<table class="table table-bordered table-striped">
 	
 			<thead class="thead-dark">
 				<tr>
 					<th>Type</th>
-					<th>Plot</th>
+					<th>Pitch</th>
 					<th>Arrival</th>
 					<th>Nights</th>
 					<th>Fee(£)</th>

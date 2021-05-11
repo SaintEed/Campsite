@@ -1,15 +1,20 @@
 package com.deusnex.campsite.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.deusnex.campsite.AvailabilityCheck;
 import com.deusnex.campsite.entity.Booking;
+import com.deusnex.campsite.entity.Plot;
 import com.deusnex.campsite.service.BookingService;
 import com.deusnex.campsite.service.PlotService;
 
@@ -27,7 +32,6 @@ public class BookingController {
 	@GetMapping("/showBookingFormForAdd")
 	public String showBookingFormForAdd(@RequestParam("customerId") int custId, Model theModel) {
 		
-		
 		// create model attribute to bind form data
 		Booking theBooking = new Booking();
 		
@@ -38,6 +42,7 @@ public class BookingController {
 		
 		return "bookings/booking-form";
 	}
+	
 	
 	@GetMapping("/showBookingFormForUpdate")
 	public String showBookingFormForUpdate(@RequestParam("bookingId") int theId,
@@ -52,9 +57,98 @@ public class BookingController {
 		return "bookings/booking-form";
 	}
 	
-	@PostMapping("/save")
-	public String saveBooking(@ModelAttribute("booking") Booking theBooking) {
+	@RequestMapping(value="/makeBooking", params="action=check", method=RequestMethod.POST )
+	public String runCheck(@ModelAttribute("booking") Booking theBooking,  Model theModel) {
 		
+		
+		theModel.addAttribute("booking", theBooking);
+		
+		System.out.println(theBooking.toString());
+		
+		AvailabilityCheck theCheck = new AvailabilityCheck();
+		
+		theCheck.setType(theBooking.getType());
+		theCheck.setStartDate(theBooking.getArrivalDate());
+		theCheck.setEndDate(theBooking.getLastNight());
+		theCheck.setNoNights(theBooking.getNoNights());
+		
+		
+		List<String> checkOutput = new ArrayList<>();
+		int x = 0;
+		int count;
+		int days = theCheck.getNoNights();
+		
+		List<Plot> resultSet = new ArrayList<>();
+		
+
+		resultSet = plotService.findAvailableByDateBetween(theCheck.getStartDate(), theCheck.getEndDate());
+		
+		switch (theCheck.getType()) {
+		case "Static":
+			count = 0;
+			x = 11;
+			for (Plot temp : resultSet) {
+					if (temp.getPlot() == x) {
+						count++;
+					}
+				}
+			
+			if (count < days) {
+				checkOutput.add("Fully Booked");
+			}else {
+				checkOutput.add("Plot 11");
+			}
+			break;
+		
+		case "Pod":
+			count = 0;
+			x = 12;
+			for (Plot temp : resultSet) {
+					if (temp.getPlot() == x) {
+						count++;
+					}
+				}
+			
+			if (count < days) {
+				checkOutput.add("Fully Booked");
+			}else {
+				checkOutput.add("Plot 12");
+			}
+			break;
+		
+		default:{
+			for(int y = 1; y < 11; y++) {
+				count = 0;
+				for (Plot temp : resultSet) {
+					if (temp.getPlot() == y) {
+						count++;
+					}
+				}
+				if (!(count < days)) {
+					checkOutput.add("Plot " + y);
+				}
+			}
+			break;
+		}
+	}
+		
+		// add to the spring model
+		theModel.addAttribute("checkOutput", checkOutput);
+		
+		
+		// use a redirect to prevent duplicate submissions
+		return "plot/checkResults";
+		}
+	
+	@RequestMapping(value="/makeBooking", params="action=save", method=RequestMethod.POST )
+	public String saveBooking(@ModelAttribute("booking") Booking theBooking, Model theModel) {
+		
+//	Booking theBooking = (Booking) (theModel.getAttribute("booking"));
+	
+	//int tempPlot = thePlot.charAt(6);
+	
+	//theBooking.setPlot(tempPlot);
+	
 		//Calculate fee
 		switch (theBooking.getType()) {
 		case "Caravan":
@@ -73,7 +167,8 @@ public class BookingController {
 			theBooking.setFee(theBooking.getNoNights() * 45);
 			break;
 		}
-				
+			
+		
 		//save the booking
 		bookingService.save(theBooking);
 		

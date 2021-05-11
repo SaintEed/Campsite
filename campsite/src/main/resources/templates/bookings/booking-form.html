@@ -24,7 +24,7 @@
 		<hr>
 		
 	
-		<form action="#" th:action="@{/bookings/save}"
+		<form  action="#" th:action="@{/bookings/makeBooking}"
 						 th:object="${booking}" 
 						 method="POST">
 						 
@@ -43,7 +43,7 @@
 			</select>
 
 			<label>Plot No.</label><input type="text" th:field="*{plot}"
-					class="form-control mb-4 col-4">
+					class="form-control mb-4 col-4"> 
 			
 			<label>Arrival Date (YYYY-MM-DD)</label><input type="date" th:field="*{arrivalDate}"
 					class="form-control mb-4 col-4">
@@ -57,13 +57,16 @@
 			<label>Electric required (Y/N)</label><input type="text" th:field="*{electric}"
 					class="form-control mb-4 col-4">
 			
-
-			<button type="submit" class="btn btn-info col-2">Save</button>
+			
+			<button type="submit" name="action" value="check" class="btn btn-info col-2">Check Availability</button>
+			
+			<button type="submit" name="action" value="save" class="btn btn-info col-2" >Book</button>
 			
 			 <input type="hidden" th:field="*{customerId}" />			
 		</form>
 	
-		<hr>
+	<hr>
+	
 		<a th:href="@{/customers/list}">Back to Customers List</a>
 		
 	</div>
