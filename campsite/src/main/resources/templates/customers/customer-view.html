@@ -61,7 +61,9 @@
 					<th>Pitch</th>
 					<th>Arrival</th>
 					<th>Nights</th>
+					<th>Dogs</th>
 					<th>Fee(£)</th>
+					<th>Paid</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -73,7 +75,9 @@
 					<td th:text="${tempBooking.plot}"  />
 					<td th:text="${tempBooking.arrivalDate}"  />
 					<td th:text="${tempBooking.noNights}"  />
+					<td th:text="${tempBooking.dogs}"  />
 					<td th:text="${tempBooking.fee}"  />
+					<td th:text="${tempBooking.paid}"  />
 					<td>
 				
 				<!-- Add update button/link includes customerId in the link -->

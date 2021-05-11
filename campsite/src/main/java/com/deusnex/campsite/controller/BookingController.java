@@ -53,6 +53,9 @@ public class BookingController {
 		// set employee as a model atttribute to pre-populate the form
 		theModel.addAttribute("booking", theBooking);
 		
+		//bookingService.deleteById(theId);
+		//plotService.unreservePlot(theBooking.getArrivalDate(), theBooking.getLastNight(), theBooking.getPlot());
+		
 		// send over  to our form
 		return "bookings/booking-form";
 	}
@@ -116,6 +119,19 @@ public class BookingController {
 			}
 			break;
 		
+		case "Tent":
+			for(int y = 1; y < 6; y++) {
+				count = 0;
+				for (Plot temp : resultSet) {
+					if (temp.getPlot() == y) {
+						count++;
+					}
+				}
+				if (!(count < days)) {
+					checkOutput.add("Plot " + y);
+				}
+			}
+			break;
 		default:{
 			for(int y = 1; y < 11; y++) {
 				count = 0;
@@ -168,7 +184,12 @@ public class BookingController {
 			break;
 		}
 			
-		
+		if (theBooking.getDogs() > 0) {
+			int dogsFee = 0;
+			dogsFee= (theBooking.getDogs() * theBooking.getNoNights());
+			dogsFee= dogsFee * 2;
+			theBooking.setFee(theBooking.getFee() + dogsFee);
+		}
 		//save the booking
 		bookingService.save(theBooking);
 		
@@ -192,7 +213,6 @@ public class BookingController {
 		
 		// delete the booking
 		bookingService.deleteById(theId);
-		
 		
 		
 		// redirect to /employee/list

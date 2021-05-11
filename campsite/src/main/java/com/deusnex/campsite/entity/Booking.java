@@ -38,11 +38,17 @@ public class Booking {
 	@Column(name="no_nights")
 	private int noNights;
 	
+	@Column(name="dogs")
+	private int dogs;
+	
 	@Column(name="electric")
 	private String electric;
 	
 	@Column(name="fee")
 	private int fee;
+	
+	@Column(name="paid")
+	private char paid;
 	
 	@Column(name="customer_id")
 	private int customerId;
@@ -67,21 +73,21 @@ public class Booking {
 
 	
 	
-	public Booking(int id, String type, int plot, LocalDate arrivalDate, LocalDate lastNight, int noNights, String electric, int fee,
-			int customerId) {
+
+	public Booking(int id, String type, int plot, LocalDate arrivalDate, LocalDate lastNight, int noNights, int dogs,
+			String electric, int fee, char paid, int customerId) {
 		this.id = id;
 		this.type = type;
 		this.plot = plot;
 		this.arrivalDate = arrivalDate;
+		this.lastNight = lastNight;
 		this.noNights = noNights;
-		this.noNights = noNights;
+		this.dogs = dogs;
 		this.electric = electric;
 		this.fee = fee;
+		this.paid = paid;
 		this.customerId = customerId;
 	}
-
-	// Getters/Setters
-	
 
 	public int getId() {
 		return id;
@@ -115,12 +121,28 @@ public class Booking {
 		this.arrivalDate = arrivalDate;
 	}
 
+	public LocalDate getLastNight() {
+		return lastNight;
+	}
+
+	public void setLastNight(LocalDate lastNight) {
+		this.lastNight = lastNight;
+	}
+
 	public int getNoNights() {
 		return noNights;
 	}
 
 	public void setNoNights(int noNights) {
 		this.noNights = noNights;
+	}
+
+	public int getDogs() {
+		return dogs;
+	}
+
+	public void setDogs(int dogs) {
+		this.dogs = dogs;
 	}
 
 	public String getElectric() {
@@ -139,6 +161,14 @@ public class Booking {
 		this.fee = fee;
 	}
 
+	public char getPaid() {
+		return paid;
+	}
+
+	public void setPaid(char paid) {
+		this.paid = paid;
+	}
+
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -146,26 +176,15 @@ public class Booking {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
-	
-	
-	public LocalDate getLastNight() {
-		return lastNight;
-	}
-
-	public void setLastNight(LocalDate lastNight) {
-		this.lastNight = lastNight;
-	}
 
 	@Override
 	public String toString() {
 		return "Booking [id=" + id + ", type=" + type + ", plot=" + plot + ", arrivalDate=" + arrivalDate
-				+ ", lastNight=" + lastNight + ", noNights=" + noNights + ", electric=" + electric + ", fee=" + fee
-				+ ", customerId=" + customerId + "]";
+				+ ", lastNight=" + lastNight + ", noNights=" + noNights + ", dogs=" + dogs + ", electric=" + electric
+				+ ", fee=" + fee + ", paid=" + paid + ", customerId=" + customerId + "]";
 	}
 
-	
-	
-	
+
 }
 
 	
