@@ -22,89 +22,84 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
-	
+
 	@Autowired
 	private BookingService bookingService;
-	
+
 	// add mapping for list
-	
+
 	@GetMapping("/list")
 	public String listCustomers(Model theModel) {
-		
+
 		// get employees from the db
 		List<Customer> theCustomers = customerService.findAll();
-		
+
 		// add to the spring model
 		theModel.addAttribute("customers", theCustomers);
-		
+
 		return "customers/list-customers";
 	}
-	
+
 	// add mapping to show add form
-		@GetMapping("/showFormForAdd")
-		public String showFormForAdd(Model theModel) {
-			
-			// create model attribute to bind form data
-			Customer theCustomer = new Customer();
-			
-			theModel.addAttribute("customer", theCustomer);
-			
-			return "customers/customer-form";
-		}
-		
-		@GetMapping("/view")
-		public String viewCustomer(@RequestParam("customerId") int theId,
-										Model theModel) {
-			// get the customer from the service
-			Customer theCustomer = customerService.findById(theId);
-			
-			
-			// set customer as a model atttribute to pre-populate the form
-			theModel.addAttribute("customer", theCustomer);
-			
-			// get bookings from the db
-			List<Booking> theBookings = bookingService.findAllByCustId(theId);
-			
-			
-			// add to the spring model
-			theModel.addAttribute("bookings", theBookings);
-			
-			
-			// send over  to our form
-			return "customers/customer-view";
-		}
-		
-		@GetMapping("/showFormForUpdate")
-		public String showFormForUpdate(@RequestParam("customerId") int theId,
-										Model theModel) {
-			// get the employee from the service
-			Customer theCustomer = customerService.findById(theId);
-			
-			// set employee as a model atttribute to pre-populate the form
-			theModel.addAttribute("customer", theCustomer);
-			
-			// send over  to our form
-			return "customers/customer-form";
-		}
-	
-		@PostMapping("/save")
-		public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
-			
-			// save the employee
-			
-			customerService.save(theCustomer);
-			
-			// use a redirect to prevent duplicate submissions
-			return "redirect:/customers/list";
-		}
-		
-		@GetMapping("/delete")
-		public String delete(@RequestParam("customerId") int theId) {
-			
-			// delete the employee
-			customerService.deleteById(theId);
-			
-			// redirect to /employee/list
-			return "redirect:/customers/list";
-		}
+	@GetMapping("/showFormForAdd")
+	public String showFormForAdd(Model theModel) {
+
+		// create model attribute to bind form data
+		Customer theCustomer = new Customer();
+
+		theModel.addAttribute("customer", theCustomer);
+
+		return "customers/customer-form";
+	}
+
+	@GetMapping("/view")
+	public String viewCustomer(@RequestParam("customerId") int theId, Model theModel) {
+		// get the customer from the service
+		Customer theCustomer = customerService.findById(theId);
+
+		// set customer as a model atttribute to populate the customer details table
+		theModel.addAttribute("customer", theCustomer);
+
+		// get bookings from the db
+		List<Booking> theBookings = bookingService.findAllByCustId(theId);
+
+		// add to the spring model
+		theModel.addAttribute("bookings", theBookings);
+
+		// send over to our form
+		return "customers/customer-view";
+	}
+
+	@GetMapping("/showFormForUpdate")
+	public String showFormForUpdate(@RequestParam("customerId") int theId, Model theModel) {
+		// get the employee from the service
+		Customer theCustomer = customerService.findById(theId);
+
+		// set employee as a model atttribute to pre-populate the form
+		theModel.addAttribute("customer", theCustomer);
+
+		// send over to our form
+		return "customers/customer-form";
+	}
+
+	@PostMapping("/save")
+	public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
+
+		// save the employee
+
+		customerService.save(theCustomer);
+
+		// use a redirect to prevent duplicate submissions
+		return "redirect:/customers/list";
+	}
+
+	@GetMapping("/delete")
+	public String delete(@RequestParam("customerId") int theId) {
+
+		// delete the employee
+		customerService.deleteById(theId);
+
+		// redirect to /employee/list
+		return "redirect:/customers/list";
+	}
 }
