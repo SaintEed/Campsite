@@ -1,5 +1,6 @@
 package com.deusnex.campsite.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,6 +58,14 @@ public class BookingServiceImpl implements BookingService {
 		bookingRepository.deleteById(theId);
 
 	}
+
+	@Override
+	public List<Booking> findAllByArrivalDate(LocalDate today) {
+		
+		return bookingRepository.findAllByArrivalDate(today);
+	}
+
+
 	
 
 }

@@ -1,5 +1,6 @@
 package com.deusnex.campsite.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,16 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.deusnex.campsite.ArrivalCheck;
 import com.deusnex.campsite.AvailabilityCheck;
 import com.deusnex.campsite.entity.Booking;
+import com.deusnex.campsite.entity.Customer;
 import com.deusnex.campsite.entity.Plot;
 import com.deusnex.campsite.service.BookingService;
+import com.deusnex.campsite.service.CustomerService;
 import com.deusnex.campsite.service.PlotService;
 
 @Controller
 @RequestMapping("/bookings")
 public class BookingController {
 
+	
 	@Value("${fee.caravan}")
 	private int caravan;
 	
@@ -37,6 +42,9 @@ public class BookingController {
 	
 	@Value("${fee.dog}")
 	private int dog;
+	
+	@Autowired
+	private CustomerService customerService;
 	
 	@Autowired
 	private BookingService bookingService;
@@ -228,6 +236,39 @@ public class BookingController {
 		
 		// redirect to /employee/list
 		return "redirect:/customers/list";
+	}
+	
+	@GetMapping("/arrivalsToday")
+	public String arrivalToday(Model theModel) {
+		
+		List<Booking> theBookingSet = new ArrayList<>();
+		
+		List<ArrivalCheck> arrivals = new ArrayList<>();
+		
+		LocalDate today;
+		
+		today = java.time.LocalDate.now();
+		
+		theBookingSet=bookingService.findAllByArrivalDate(today);
+		
+		for (Booking temp : theBookingSet) {
+			ArrivalCheck check = new ArrivalCheck();
+			Customer scratch;
+			scratch = customerService.findById(temp.getCustomerId());
+			check.setName(scratch.getLastName());
+			check.setType(temp.getType());
+			check.setPitch(temp.getPlot());
+			check.setNoOfNights(temp.getNoNights());
+			check.setFee(temp.getFee());
+			check.setPaid(temp.getPaid());
+			arrivals.add(check);
+		}
+		
+		// add to the spring model
+		theModel.addAttribute("arrivals", arrivals);
+		
+		return "bookings/arrivals";
+		
 	}
 
 }
