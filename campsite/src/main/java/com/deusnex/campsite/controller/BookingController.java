@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deusnex.campsite.ArrivalCheck;
 import com.deusnex.campsite.AvailabilityCheck;
+import com.deusnex.campsite.OnSiteCheck;
 import com.deusnex.campsite.entity.Booking;
 import com.deusnex.campsite.entity.Customer;
 import com.deusnex.campsite.entity.Plot;
@@ -205,7 +206,7 @@ public class BookingController {
 
 		// reserve the plot
 		plotService.reservePlot(theBooking.getArrivalDate(), theBooking.getLastNight(), theBooking.getPlot(),
-				theBooking.getCustomerId());
+				theBooking.getId());
 		
 		//get customer data for transfer to customer view
 		Customer theCustomer = new Customer();
@@ -215,7 +216,6 @@ public class BookingController {
 		List<Booking> theBookings = bookingService.findAllByCustId(theBooking.getCustomerId());
 		theModel.addAttribute("bookings", theBookings);
 
-		// use a redirect to prevent duplicate submissions
 		return "customers/customer-view";
 	}
 
@@ -240,7 +240,6 @@ public class BookingController {
 		List<Booking> theBookings = bookingService.findAllByCustId(theBooking.getCustomerId());
 		theModel.addAttribute("bookings", theBookings);
 
-		// redirect to /employee/list
 		return "customers/customer-view";
 	}
 
@@ -258,15 +257,9 @@ public class BookingController {
 		theBookingSet = bookingService.findAllByArrivalDate(today);
 
 		for (Booking temp : theBookingSet) {
-			ArrivalCheck check = new ArrivalCheck();
 			Customer scratch;
 			scratch = customerService.findById(temp.getCustomerId());
-			check.setName(scratch.getLastName());
-			check.setType(temp.getType());
-			check.setPitch(temp.getPlot());
-			check.setNoOfNights(temp.getNoNights());
-			check.setFee(temp.getFee());
-			check.setPaid(temp.getPaid());
+			ArrivalCheck check = new ArrivalCheck(scratch.getLastName(), temp.getType(), temp.getPlot(), temp.getNoNights(), temp.getFee(), temp.getPaid());
 			arrivals.add(check);
 		}
 
@@ -274,6 +267,36 @@ public class BookingController {
 		theModel.addAttribute("arrivals", arrivals);
 
 		return "bookings/arrivals";
+
+	}
+	
+	@GetMapping("/siteStatus")
+	public String siteStatus(Model theModel) {
+
+		
+		List<Plot> theCampSet = new ArrayList<>();
+		
+		List<OnSiteCheck> resultSet = new ArrayList<>();
+
+		LocalDate today;
+
+		today = java.time.LocalDate.now();
+		
+		theCampSet = plotService.findAllOnsite(today);
+
+
+		for (Plot temp : theCampSet) {
+			
+			Booking theBooking = bookingService.findById(temp.getBookingId());
+			Customer theCustomer = customerService.findById(theBooking.getCustomerId());
+			OnSiteCheck scratch = new OnSiteCheck(theCustomer.getFirstName(), theCustomer.getLastName(), theBooking.getPlot(), theBooking.getArrivalDate(), theBooking.getLastNight());
+			resultSet.add(scratch);
+		}
+
+		// add to the spring model
+		theModel.addAttribute("resultSet", resultSet);
+
+		return "bookings/onSiteResults";
 
 	}
 

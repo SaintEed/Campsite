@@ -54,4 +54,9 @@ public class PlotServiceImpl implements PlotService {
 		
 	}
 
+	@Override
+	public List<Plot> findAllOnsite(LocalDate date) {
+		return plotRepository.findAllOnsite(date);
+	}
+
 }

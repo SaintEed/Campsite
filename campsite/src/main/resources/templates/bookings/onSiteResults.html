@@ -12,7 +12,7 @@
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
 
-<title>Arrivals</title>
+<title>On Site</title>
 
 </head>
 
@@ -22,7 +22,7 @@
 
 		<h1 style="text-align: center">Crystal Lake Campsite</h1>
 		<br>
-		<h3>Arriving Today:</h3>
+		<h3>On Site Today:</h3>
 		<hr>
 		<!-- Add a button -->
 		<!-- 	<a th:href="@{/customers/showFormForAdd}" class = "btn btn-primary btn-sm mb-3">Make Booking</a> -->
@@ -31,26 +31,23 @@
 
 			<thead class="thead-dark">
 				<tr>
-					<th>Name</th>
-					<th>Type</th>
+					<th>First Name</th>
+					<th>Last Name</th>
 					<th>Pitch</th>
-					<th>Nights</th>
-					<th>Fee(£)</th>
-					<th>Paid</th>
+					<th>Arrival</th>
+					<th>Last Night</th>
 				</tr>
 			</thead>
 
 
 			<tbody>
-				<tr th:each="temp : ${arrivals}">
+				<tr th:each="temp : ${resultSet}">
 
-					<td th:text="${temp.name}" />
-					<td th:text="${temp.type}" />
+					<td th:text="${temp.firstName}" />
+					<td th:text="${temp.lastName}" />
 					<td th:text="${temp.pitch}" />
-					<td th:text="${temp.noOfNights}" />
-					<td th:text="${temp.fee}" />
-					<td th:text="${temp.paid}" />
-
+					<td th:text="${temp.arrivalDate}" />
+					<td th:text="${temp.lastNight}" />
 				</tr>
 
 			</tbody>

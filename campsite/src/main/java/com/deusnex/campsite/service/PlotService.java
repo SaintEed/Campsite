@@ -13,6 +13,8 @@ public interface PlotService {
 
 	public List<Plot> findAvailableByDateBetween(LocalDate start, LocalDate end);
 	
+	public List<Plot> findAllOnsite(LocalDate date);
+	
 	public void reservePlot(LocalDate start, LocalDate end, int plot, int bookingId);
 	
 	public void unreservePlot(LocalDate start, LocalDate end, int plot);

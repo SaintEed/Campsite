@@ -17,6 +17,9 @@ public interface PlotRepository extends JpaRepository<Plot, Integer> {
 	@Query(value = "SELECT * FROM campsite.plot WHERE (plot.date BETWEEN ?1 AND ?2) AND plot.available='Y'", nativeQuery = true)
 	  List<Plot> findAvailableByDateBetween(LocalDate start, LocalDate end);
 	
+	@Query(value = "SELECT * FROM campsite.plot WHERE plot.date = ?1 AND plot.available = 'N' ORDER BY plot.plot", nativeQuery = true)
+	  List<Plot> findAllOnsite(LocalDate date);
+	
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE campsite.plot SET plot.available = 'N', plot.booking_id = ?4 WHERE (plot.date BETWEEN ?1 AND ?2) AND (plot.plot = ?3)", nativeQuery = true)
