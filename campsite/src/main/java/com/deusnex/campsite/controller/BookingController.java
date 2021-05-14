@@ -149,7 +149,8 @@ public class BookingController {
 				}
 			}
 			break;
-		default: {
+			
+		default: 
 			for (int y = 1; y < 11; y++) {
 				count = 0;
 				for (Plot temp : resultSet) {
@@ -162,7 +163,6 @@ public class BookingController {
 				}
 			}
 			break;
-		}
 		}
 
 		// add to the spring model
@@ -201,14 +201,13 @@ public class BookingController {
 			dogsFee = dogsFee * dog;
 			theBooking.setFee(theBooking.getFee() + dogsFee);
 		}
-		// save the booking
+		
 		bookingService.save(theBooking);
 
-		// reserve the plot
 		plotService.reservePlot(theBooking.getArrivalDate(), theBooking.getLastNight(), theBooking.getPlot(),
 				theBooking.getId());
 		
-		//get customer data for transfer to customer view
+		//get customer  and booking data for transfer to customer view
 		Customer theCustomer = new Customer();
 		theCustomer = customerService.findById(theBooking.getCustomerId());
 		theModel.addAttribute("customer", theCustomer);
