@@ -42,7 +42,7 @@
 				<option value="Pod">Pod</option>
 			</select>
 
-			<label>Plot No.</label><input type="text" th:field="*{plot}"
+			<label>Pitch</label><input type="text" th:field="*{pitch}"
 					class="form-control mb-4 col-4"> 
 			
 			<label>Arrival Date (YYYY-MM-DD)</label><input type="date" th:field="*{arrivalDate}"
@@ -57,10 +57,10 @@
 			<label>No of Dogs</label><input type="text" th:field="*{dogs}"
 					class="form-control mb-4 col-4">
 			
-			<label>Electric (Y/N)</label><input type="text" th:field="*{electric}"
+			<label>Electric (Y/N)</label><input type="text" th:field="*{electric}" value='Y'
 					class="form-control mb-4 col-4">
 			
-			<label>Paid (Y/N)</label><input type="text" th:field="*{paid}"
+			<label>Paid (Y/N)</label><input type="text" th:field="*{paid}" value='N'
 					class="form-control mb-4 col-4">
 			
 			
@@ -73,7 +73,7 @@
 	
 	<hr>
 	
-		<a th:href="@{/customers/list}">Back to Customers List</a>
+		<a th:href="@{/customers/list}">Back to Home</a>
 		
 	</div>
 

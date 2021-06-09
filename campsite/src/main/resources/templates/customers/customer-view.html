@@ -72,7 +72,7 @@
 			<tbody>
 				<tr th:each="tempBooking : ${bookings}" >
 					<td th:text="${tempBooking.type}"  />
-					<td th:text="${tempBooking.plot}"  />
+					<td th:text="${tempBooking.pitch}"  />
 					<td th:text="${tempBooking.arrivalDate}"  />
 					<td th:text="${tempBooking.noNights}"  />
 					<td th:text="${tempBooking.dogs}"  />
@@ -95,7 +95,7 @@
 			</table>
 		
 		<hr>
-		<a th:href="@{/customers/list}">Back to Customers List</a>
+		<a th:href="@{/customers/list}">Back to Home</a>
 		
 	</div>
 

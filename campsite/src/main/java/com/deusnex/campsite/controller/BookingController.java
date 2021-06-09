@@ -19,10 +19,10 @@ import com.deusnex.campsite.AvailabilityCheck;
 import com.deusnex.campsite.OnSiteCheck;
 import com.deusnex.campsite.entity.Booking;
 import com.deusnex.campsite.entity.Customer;
-import com.deusnex.campsite.entity.Plot;
+import com.deusnex.campsite.entity.Pitch;
 import com.deusnex.campsite.service.BookingService;
 import com.deusnex.campsite.service.CustomerService;
-import com.deusnex.campsite.service.PlotService;
+import com.deusnex.campsite.service.PitchService;
 
 @Controller
 @RequestMapping("/bookings")
@@ -50,7 +50,7 @@ public class BookingController {
 	private BookingService bookingService;
 
 	@Autowired
-	private PlotService plotService;
+	private PitchService pitchService;
 
 	@GetMapping("/showBookingFormForAdd")
 	public String showBookingFormForAdd(@RequestParam("customerId") int custId, Model theModel) {
@@ -75,8 +75,8 @@ public class BookingController {
 		theModel.addAttribute("booking", theBooking);
 
 		bookingService.deleteById(theId);
-		plotService.unreservePlot(theBooking.getArrivalDate(),
-				theBooking.getLastNight(), theBooking.getPlot());
+		pitchService.unreservePlot(theBooking.getArrivalDate(),
+				theBooking.getLastNight(), theBooking.getPitch());
 
 		// send over to our form
 		return "bookings/booking-form";
@@ -99,16 +99,16 @@ public class BookingController {
 		int count;
 		int days = theCheck.getNoNights();
 
-		List<Plot> resultSet = new ArrayList<>();
+		List<Pitch> resultSet = new ArrayList<>();
 
-		resultSet = plotService.findAvailableByDateBetween(theCheck.getStartDate(), theCheck.getEndDate());
+		resultSet = pitchService.findAvailableByDateBetween(theCheck.getStartDate(), theCheck.getEndDate());
 
 		switch (theCheck.getType()) {
 		case "Static":
 			count = 0;
 			x = 11;
-			for (Plot temp : resultSet) {
-				if (temp.getPlot() == x) {
+			for (Pitch temp : resultSet) {
+				if (temp.getPitch() == x) {
 					count++;
 				}
 			}
@@ -116,15 +116,15 @@ public class BookingController {
 			if (count < days) {
 				checkOutput.add("Fully Booked");
 			} else {
-				checkOutput.add("Plot 11");
+				checkOutput.add("Pitch 11");
 			}
 			break;
 
 		case "Pod":
 			count = 0;
 			x = 12;
-			for (Plot temp : resultSet) {
-				if (temp.getPlot() == x) {
+			for (Pitch temp : resultSet) {
+				if (temp.getPitch() == x) {
 					count++;
 				}
 			}
@@ -132,20 +132,20 @@ public class BookingController {
 			if (count < days) {
 				checkOutput.add("Fully Booked");
 			} else {
-				checkOutput.add("Plot 12");
+				checkOutput.add("Pitch 12");
 			}
 			break;
 
 		case "Tent":
 			for (int y = 1; y < 6; y++) {
 				count = 0;
-				for (Plot temp : resultSet) {
-					if (temp.getPlot() == y) {
+				for (Pitch temp : resultSet) {
+					if (temp.getPitch() == y) {
 						count++;
 					}
 				}
 				if (!(count < days)) {
-					checkOutput.add("Plot " + y);
+					checkOutput.add("Pitch " + y);
 				}
 			}
 			break;
@@ -153,13 +153,13 @@ public class BookingController {
 		default: 
 			for (int y = 1; y < 11; y++) {
 				count = 0;
-				for (Plot temp : resultSet) {
-					if (temp.getPlot() == y) {
+				for (Pitch temp : resultSet) {
+					if (temp.getPitch() == y) {
 						count++;
 					}
 				}
 				if (!(count < days)) {
-					checkOutput.add("Plot " + y);
+					checkOutput.add("Pitch " + y);
 				}
 			}
 			break;
@@ -169,7 +169,7 @@ public class BookingController {
 		theModel.addAttribute("checkOutput", checkOutput);
 
 		// use a redirect to prevent duplicate submissions
-		return "plot/checkResults";
+		return "pitch/checkResults";
 	}
 
 	@RequestMapping(value = "/makeBooking", params = "action=save", method = RequestMethod.POST)
@@ -204,7 +204,7 @@ public class BookingController {
 		
 		bookingService.save(theBooking);
 
-		plotService.reservePlot(theBooking.getArrivalDate(), theBooking.getLastNight(), theBooking.getPlot(),
+		pitchService.reservePitch(theBooking.getArrivalDate(), theBooking.getLastNight(), theBooking.getPitch(),
 				theBooking.getId());
 		
 		//get customer  and booking data for transfer to customer view
@@ -226,7 +226,7 @@ public class BookingController {
 		theBooking = bookingService.findById(theId);
 
 		// unreserve the plot
-		plotService.unreservePlot(theBooking.getArrivalDate(), theBooking.getLastNight(), theBooking.getPlot());
+		pitchService.unreservePlot(theBooking.getArrivalDate(), theBooking.getLastNight(), theBooking.getPitch());
 
 		// delete the booking
 		bookingService.deleteById(theId);
@@ -258,7 +258,7 @@ public class BookingController {
 		for (Booking temp : theBookingSet) {
 			Customer scratch;
 			scratch = customerService.findById(temp.getCustomerId());
-			ArrivalCheck check = new ArrivalCheck(scratch.getLastName(), temp.getType(), temp.getPlot(), temp.getNoNights(), temp.getFee(), temp.getPaid());
+			ArrivalCheck check = new ArrivalCheck(scratch.getLastName(), temp.getType(), temp.getPitch(), temp.getNoNights(), temp.getFee(), temp.getPaid());
 			arrivals.add(check);
 		}
 
@@ -273,7 +273,7 @@ public class BookingController {
 	public String siteStatus(Model theModel) {
 
 		
-		List<Plot> theCampSet = new ArrayList<>();
+		List<Pitch> theCampSet = new ArrayList<>();
 		
 		List<OnSiteCheck> resultSet = new ArrayList<>();
 
@@ -281,14 +281,14 @@ public class BookingController {
 
 		today = java.time.LocalDate.now();
 		
-		theCampSet = plotService.findAllOnsite(today);
+		theCampSet = pitchService.findAllOnsite(today);
 
 
-		for (Plot temp : theCampSet) {
+		for (Pitch temp : theCampSet) {
 			
 			Booking theBooking = bookingService.findById(temp.getBookingId());
 			Customer theCustomer = customerService.findById(theBooking.getCustomerId());
-			OnSiteCheck scratch = new OnSiteCheck(theCustomer.getFirstName(), theCustomer.getLastName(), theBooking.getPlot(), theBooking.getArrivalDate(), theBooking.getLastNight());
+			OnSiteCheck scratch = new OnSiteCheck(theCustomer.getFirstName(), theCustomer.getLastName(), theBooking.getPitch(), theBooking.getArrivalDate(), theBooking.getLastNight());
 			resultSet.add(scratch);
 		}
 

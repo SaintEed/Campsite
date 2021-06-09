@@ -12,44 +12,44 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="plot")
-public class Plot {
+@Table(name = "pitch")
+public class Pitch {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
-	
-	@Column(name="date")
+
+	@Column(name = "booking_id")
+	private int bookingId;
+
+	@Column(name = "date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
-	
-	@Column(name="plot")
-	private int plot;
-	
-	@Column(name="available")
+
+	@Column(name = "pitch")
+	private int pitch;
+
+	@Column(name = "available")
 	private String available;
-	
-	@Column(name="booking_id")
-	private int bookingId;
-	
-	public Plot () {
-		
+
+	public Pitch() {
+
 	}
 
-	public Plot(int id, LocalDate date, int plot, String available, int bookingId) {
+	public Pitch(int id, int bookingId, LocalDate date, int pitch, String available) {
 		this.id = id;
-		this.date = date;
-		this.plot = plot;
-		this.available = available;
 		this.bookingId = bookingId;
+		this.date = date;
+		this.pitch = pitch;
+		this.available = available;
 	}
 
-	public Plot(LocalDate date, int plot, String available, int bookingId) {
-		this.date = date;
-		this.plot = plot;
-		this.available = available;
+	public Pitch(int bookingId, LocalDate date, int pitch, String available) {
 		this.bookingId = bookingId;
+		this.date = date;
+		this.pitch = pitch;
+		this.available = available;
 	}
 
 	public int getId() {
@@ -60,6 +60,14 @@ public class Plot {
 		this.id = id;
 	}
 
+	public int getBookingId() {
+		return bookingId;
+	}
+
+	public void setBookingId(int bookingId) {
+		this.bookingId = bookingId;
+	}
+
 	public LocalDate getDate() {
 		return date;
 	}
@@ -68,12 +76,12 @@ public class Plot {
 		this.date = date;
 	}
 
-	public int getPlot() {
-		return plot;
+	public int getPitch() {
+		return pitch;
 	}
 
-	public void setPlot(int plot) {
-		this.plot = plot;
+	public void setPitch(int pitch) {
+		this.pitch = pitch;
 	}
 
 	public String getAvailable() {
@@ -84,19 +92,10 @@ public class Plot {
 		this.available = available;
 	}
 
-	public int getBookingId() {
-		return bookingId;
-	}
-
-	public void setBookingId(int bookingId) {
-		this.bookingId = bookingId;
-	}
-
 	@Override
 	public String toString() {
-		return "Plot [id=" + id + ", date=" + date + ", plot=" + plot + ", available=" + available + ", bookingId="
-				+ bookingId + "]";
+		return "Pitch [id=" + id + ", bookingId=" + bookingId + ", date=" + date + ", pitch=" + pitch + ", available="
+				+ available + "]";
 	}
-	
-	
+
 }

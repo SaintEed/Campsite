@@ -39,6 +39,18 @@ public class CustomerController {
 
 		return "customers/list-customers";
 	}
+	
+	@GetMapping("/search")
+	public String searchCustomers(Model theModel) {
+
+//		// get employees from the db
+//		List<Customer> theCustomers = customerService.findAll();
+//
+//		// add to the spring model
+//		theModel.addAttribute("customers", theCustomers);
+
+		return "customers/list-customers";
+	}
 
 	// add mapping to show add form
 	@GetMapping("/showFormForAdd")

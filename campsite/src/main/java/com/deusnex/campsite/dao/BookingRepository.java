@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.deusnex.campsite.entity.Booking;
-import com.deusnex.campsite.entity.Plot;
+import com.deusnex.campsite.entity.Pitch;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Integer> {

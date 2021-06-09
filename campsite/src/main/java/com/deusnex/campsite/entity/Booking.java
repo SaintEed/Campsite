@@ -24,8 +24,8 @@ public class Booking {
 	@Column(name="type")
 	private String type;
 	
-	@Column(name="plot")
-	private int plot;
+	@Column(name="pitch")
+	private int pitch;
 	
 	@Column(name="arrival")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -58,9 +58,9 @@ public class Booking {
 		
 	}
 
-	public Booking(String type, int plot, LocalDate arrivalDate, LocalDate lastNight, int noNights, String electric, int fee, int customerId) {
+	public Booking(String type, int pitch, LocalDate arrivalDate, LocalDate lastNight, int noNights, String electric, int fee, int customerId) {
 		this.type = type;
-		this.plot = plot;
+		this.pitch = pitch;
 		this.arrivalDate = arrivalDate;
 		this.lastNight = lastNight;
 		this.noNights = noNights;
@@ -74,11 +74,11 @@ public class Booking {
 	
 	
 
-	public Booking(int id, String type, int plot, LocalDate arrivalDate, LocalDate lastNight, int noNights, int dogs,
+	public Booking(int id, String type, int pitch, LocalDate arrivalDate, LocalDate lastNight, int noNights, int dogs,
 			String electric, int fee, char paid, int customerId) {
 		this.id = id;
 		this.type = type;
-		this.plot = plot;
+		this.pitch = pitch;
 		this.arrivalDate = arrivalDate;
 		this.lastNight = lastNight;
 		this.noNights = noNights;
@@ -105,12 +105,12 @@ public class Booking {
 		this.type = type;
 	}
 
-	public int getPlot() {
-		return plot;
+	public int getPitch() {
+		return pitch;
 	}
 
-	public void setPlot(int plot) {
-		this.plot = plot;
+	public void setPitch(int pitch) {
+		this.pitch = pitch;
 	}
 
 	public LocalDate getArrivalDate() {
@@ -179,7 +179,7 @@ public class Booking {
 
 	@Override
 	public String toString() {
-		return "Booking [id=" + id + ", type=" + type + ", plot=" + plot + ", arrivalDate=" + arrivalDate
+		return "Booking [id=" + id + ", type=" + type + ", pitch=" + pitch + ", arrivalDate=" + arrivalDate
 				+ ", lastNight=" + lastNight + ", noNights=" + noNights + ", dogs=" + dogs + ", electric=" + electric
 				+ ", fee=" + fee + ", paid=" + paid + ", customerId=" + customerId + "]";
 	}
