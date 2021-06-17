@@ -44,11 +44,9 @@
 			class="btn btn-warning btn-sm mb-3">Site Status</a>
 		<hr>
 		<h4>Search</h4>
-		<form action="#" th:action="@{/search}" 
-			   method="POST">
-	  	 <label for="sName"></label><input type="text" id="sName" class="form-control mb-4 col-4">
-		<input type="submit" class="btn btn-primary btn-sm mb-3" />
-		
+		<form action="#" th:action="@{/customers/search}" method="get">
+	  	 	<input type="text" th:name="sName" id="sName" class="form-control mb-4 col-4">	
+	  	 	<input type="submit" value="Search" class="btn btn-info btn-sm">
 		</form>
 		<hr>
 		<table class="table table-bordered table-striped">

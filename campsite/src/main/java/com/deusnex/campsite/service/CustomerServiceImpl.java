@@ -51,4 +51,14 @@ public class CustomerServiceImpl implements CustomerService {
 
 	}
 
+	@Override
+	public List<Customer> nameSearch(String search) {
+		// TODO Auto-generated method stub
+		return customerRepository.findBySearch(search);
+	}
+
+
+
+	
+
 }

@@ -41,13 +41,14 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/search")
-	public String searchCustomers(Model theModel) {
+	public String searchCustomers(@RequestParam(value = "sName") String search, Model theModel) {
+		
+		System.out.println(search);
+		// get employees from the db
+		List<Customer> theCustomers = customerService.nameSearch(search);
 
-//		// get employees from the db
-//		List<Customer> theCustomers = customerService.findAll();
-//
-//		// add to the spring model
-//		theModel.addAttribute("customers", theCustomers);
+		// add to the spring model
+		theModel.addAttribute("customers", theCustomers);
 
 		return "customers/list-customers";
 	}
